@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  Button,
-  Container,
-  Flex,
-  Group,
-  rem,
-  Slider,
-  Stack,
-  Text,
-} from "@mantine/core";
+import { Button, Group, rem, Stack, Text } from "@mantine/core";
 import { useMove } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 
@@ -103,15 +94,13 @@ export default function Home() {
       ctx.currentTime
     );
 
-    [
-      oscillator,
-      gainNode,
-      lowpass,
-      cutNode,
-      f1Node,
-      f2Node,
-      ctx.destination,
-    ].reduce((p: any, n) => p.connect(n));
+    oscillator
+      .connect(gainNode)
+      .connect(lowpass)
+      .connect(cutNode)
+      .connect(f1Node)
+      .connect(f2Node)
+      .connect(ctx.destination);
 
     voiceApparatus.current = {
       ctx,
