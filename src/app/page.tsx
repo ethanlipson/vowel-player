@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Group, rem, Stack, Text } from "@mantine/core";
+import { Anchor, Button, Group, rem, Stack, Text, Title } from "@mantine/core";
 import { useMove } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 
@@ -37,6 +37,25 @@ const settings = {
     default: 1000,
   },
 } as const;
+
+const vowels = [
+  [80, 20, "i"],
+  [180, 17.5, "y"],
+  [140, 95, "e"],
+  [220, 85, "ø"],
+  [220, 205, "ɛ"],
+  [258, 192.5, "œ"],
+  [320, 360, "a"],
+  [194, 291, "æ"],
+  [412, 275, "ɑ"],
+  [448, 250, "ɒ"],
+  [366, 200, "ʌ"],
+  [460, 150, "ɔ"],
+  [338, 130, "ɤ"],
+  [472, 80, "o"],
+  [340, 50, "ɯ"],
+  [481, 25, "u"],
+] as const;
 
 export default function Home() {
   const [playing, setPlaying] = useState(false);
@@ -128,13 +147,30 @@ export default function Home() {
   }, [pos]);
 
   return (
-    <Stack align="flex-start" p={rem(32)}>
-      <Stack gap={0}>
-        <Group justify="space-between" mr={rem(44)}>
-          <Text>3000</Text>
-          <Text>500</Text>
-        </Group>
-        <Group gap={8}>
+    <Group justify="space-between" align="start" p={rem(32)} gap={rem(64)}>
+      <Stack style={{ flexBasis: 0, flexGrow: 1 }}>
+        <Title>Vowel Player</Title>
+        <Text>
+          <Anchor href="https://ethanlipson.com">Ethan Lipson</Anchor> and{" "}
+          <Anchor href="https://github.com/yrafalin">Yoav Rafalin</Anchor>
+        </Text>
+        <Text>
+          This was created as a part of our investigation into so-called{" "}
+          <i>hypervowels</i>, those which in principle exist but cannot be
+          created by the human mouth due to biological constraints.
+        </Text>
+        <Anchor href="https://github.com/ethanlipson/vowel-player">
+          GitHub
+        </Anchor>
+      </Stack>
+      <Stack align="flex-start" style={{ flexBasis: 0 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "auto auto" }}>
+          <Group justify="space-between">
+            <Text size="xs">3000</Text>
+            <Text fw={700}>F2</Text>
+            <Text size="xs">500</Text>
+          </Group>
+          <div />
           <div
             ref={ref}
             style={{
@@ -157,93 +193,57 @@ export default function Home() {
               }}
             />
             <svg width={rem(522 / 16)} viewBox="0 0 522 422">
-              <circle id="circle_0" cx="80" cy="20" r="1"></circle>
-              <text id="text_0" x="70" y="30">
-                i
-              </text>
-              <circle id="circle_1" cx="180" cy="17.5" r="1"></circle>
-              <text id="text_1" x="170" y="27.5">
-                y
-              </text>
-              <circle id="circle_2" cx="140" cy="95" r="1"></circle>
-              <text id="text_2" x="130" y="105">
-                e
-              </text>
-              <circle id="circle_3" cx="220" cy="85" r="1"></circle>
-              <text id="text_3" x="210" y="95">
-                ø
-              </text>
-              <circle id="circle_4" cx="220" cy="205" r="1"></circle>
-              <text id="text_4" x="210" y="215">
-                ɛ
-              </text>
-              <circle id="circle_5" cx="258" cy="192.5" r="1"></circle>
-              <text id="text_5" x="248" y="202.5">
-                œ
-              </text>
-              <circle id="circle_6" cx="320" cy="360" r="1"></circle>
-              <text id="text_6" x="310" y="370">
-                a
-              </text>
-              <circle id="circle_7" cx="194" cy="291" r="1"></circle>
-              <text id="text_7" x="184" y="301">
-                æ
-              </text>
-              <circle id="circle_8" cx="412" cy="275" r="1"></circle>
-              <text id="text_8" x="402" y="285">
-                ɑ
-              </text>
-              <circle id="circle_9" cx="448" cy="250" r="1"></circle>
-              <text id="text_9" x="438" y="260">
-                ɒ
-              </text>
-              <circle id="circle_10" cx="366" cy="200" r="1"></circle>
-              <text id="text_10" x="356" y="210">
-                ʌ
-              </text>
-              <circle id="circle_11" cx="460" cy="150" r="1"></circle>
-              <text id="text_11" x="450" y="160">
-                ɔ
-              </text>
-              <circle id="circle_12" cx="338" cy="130" r="1"></circle>
-              <text id="text_12" x="328" y="140">
-                ɤ
-              </text>
-              <circle id="circle_13" cx="472" cy="80" r="1"></circle>
-              <text id="text_13" x="462" y="90">
-                o
-              </text>
-              <circle id="circle_14" cx="340" cy="50" r="1"></circle>
-              <text id="text_14" x="330" y="60">
-                ɯ
-              </text>
-              <circle id="circle_15" cx="481" cy="25" r="1"></circle>
-              <text id="text_15" x="471" y="35">
-                u
-              </text>
+              {vowels.map(v => (
+                <>
+                  <circle cx={v[0]} cy={v[1]} r={1} />
+                  <text x={v[0] - 10} y={v[1] + 10}>
+                    {v[2]}
+                  </text>
+                </>
+              ))}
             </svg>
           </div>
-          <Stack justify="space-between" h={rem((422 / 522) * 400)}>
-            <Text>200</Text>
-            <Text>1000</Text>
+          <Stack justify="space-between" align="center">
+            <Text size="xs">200</Text>
+            <Text fw={700}>F1</Text>
+            <Text size="xs">1000</Text>
           </Stack>
-        </Group>
+        </div>
+        <Stack gap={0}>
+          <Text>F1: {Math.round(posToFormant(pos.y, settings.f1))}</Text>
+          <Text>F2: {Math.round(posToFormant(1 - pos.x, settings.f2))}</Text>
+        </Stack>
+        <Button
+          onClick={() => {
+            if (playing) {
+              voiceApparatus.current?.oscillator.stop();
+              voiceApparatus.current?.oscillator.disconnect();
+              setPlaying(false);
+            } else {
+              createChain();
+              voiceApparatus.current?.oscillator.start();
+              setPlaying(true);
+            }
+          }}
+        >
+          <Text>{playing ? "Stop" : "Start"}</Text>
+        </Button>
       </Stack>
-      <Button
-        onClick={() => {
-          if (playing) {
-            voiceApparatus.current?.oscillator.stop();
-            voiceApparatus.current?.oscillator.disconnect();
-            setPlaying(false);
-          } else {
-            createChain();
-            voiceApparatus.current?.oscillator.start();
-            setPlaying(true);
-          }
-        }}
-      >
-        {playing ? "Stop" : "Start"}
-      </Button>
-    </Stack>
+      <Stack style={{ textAlign: "right", flexBasis: 0, flexGrow: 1 }}>
+        <Title order={3}>Controls</Title>
+        <Stack gap={0}>
+          <Text>Press the start/stop button to toggle sound</Text>
+          <Text>Drag the cursor to change the vowel</Text>
+        </Stack>
+        <Title order={3}>Credits</Title>
+        <Text>
+          Thanks to{" "}
+          <Anchor href="https://lakiryt.com/vowel-chart/?lang=en#info">
+            Taro Yoshioka
+          </Anchor>{" "}
+          for the inspiration and placement of vowels
+        </Text>
+      </Stack>
+    </Group>
   );
 }
