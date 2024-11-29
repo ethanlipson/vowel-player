@@ -238,10 +238,10 @@ export default function Home() {
         <Title order={3}>Credits</Title>
         <Text>
           Thanks to{" "}
-          <Anchor href="https://lakiryt.com/vowel-chart/?lang=en#info">
+          <Anchor href="https://lakiryt.com/vowel-chart/?lang=en">
             Taro Yoshioka
           </Anchor>{" "}
-          for the inspiration and placement of vowels
+          for the audio configuration and placement of vowels
         </Text>
       </Stack>
     </Group>
