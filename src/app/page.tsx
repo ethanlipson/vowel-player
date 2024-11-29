@@ -180,8 +180,8 @@ export default function Home() {
           <div
             ref={ref}
             style={{
-              width: rem(400),
-              height: rem((422 / 522) * 400),
+              width: `min(${rem(400)}, 80vw)`,
+              aspectRatio: "522 / 422",
               backgroundColor: "var(--mantine-color-blue-light)",
               position: "relative",
             }}
@@ -198,7 +198,7 @@ export default function Home() {
                   : "var(--mantine-color-blue-7)",
               }}
             />
-            <svg width={rem(522 / 16)} viewBox="0 0 522 422">
+            <svg width="100%" viewBox="0 0 522 422">
               {vowels.map((v, i) => (
                 <Fragment key={i}>
                   <circle cx={v[0]} cy={v[1]} r={1} />
