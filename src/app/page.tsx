@@ -2,7 +2,11 @@
 
 import { Anchor, Button, Group, rem, Stack, Text, Title } from "@mantine/core";
 import { useMove } from "@mantine/hooks";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import {
+  IconPlayerPauseFilled,
+  IconPlayerPlayFilled,
+} from "@tabler/icons-react";
 
 type VoiceApparatus = {
   ctx: AudioContext;
@@ -159,9 +163,11 @@ export default function Home() {
           <i>hypervowels</i>, those which in principle exist but cannot be
           created by the human mouth due to biological constraints.
         </Text>
-        <Anchor href="https://github.com/ethanlipson/vowel-player">
-          GitHub
-        </Anchor>
+        <Text>
+          <Anchor href="https://github.com/ethanlipson/vowel-player">
+            GitHub
+          </Anchor>
+        </Text>
       </Stack>
       <Stack align="flex-start" style={{ flexBasis: 0 }}>
         <div style={{ display: "grid", gridTemplateColumns: "auto auto" }}>
@@ -193,13 +199,13 @@ export default function Home() {
               }}
             />
             <svg width={rem(522 / 16)} viewBox="0 0 522 422">
-              {vowels.map(v => (
-                <>
+              {vowels.map((v, i) => (
+                <Fragment key={i}>
                   <circle cx={v[0]} cy={v[1]} r={1} />
                   <text x={v[0] - 10} y={v[1] + 10}>
                     {v[2]}
                   </text>
-                </>
+                </Fragment>
               ))}
             </svg>
           </div>
@@ -214,6 +220,13 @@ export default function Home() {
           <Text>F2: {Math.round(posToFormant(1 - pos.x, settings.f2))}</Text>
         </Stack>
         <Button
+          leftSection={
+            playing ? (
+              <IconPlayerPauseFilled size={14} />
+            ) : (
+              <IconPlayerPlayFilled size={14} />
+            )
+          }
           onClick={() => {
             if (playing) {
               voiceApparatus.current?.oscillator.stop();
